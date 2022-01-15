@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -14,8 +13,26 @@ public partial class Resource
     public Datum[] Data { get; set; }
 }
 
-public partial class Datum
+public class Datum
 {
+    [JsonProperty("alert")]
+    public Alert Alert { get; set; }
+
+    [JsonProperty("color")]
+    public Color Color { get; set; }
+
+    [JsonProperty("color_temperature")]
+    public ColorTemperature ColorTemperature { get; set; }
+
+    [JsonProperty("dimming")]
+    public Dimming Dimming { get; set; }
+
+    [JsonProperty("dynamics")]
+    public Dynamics Dynamics { get; set; }
+
+    [JsonProperty("effects")]
+    public Effects Effects { get; set; }
+
     [JsonProperty("id")]
     public string Id { get; set; }
 
@@ -25,17 +42,127 @@ public partial class Datum
     [JsonProperty("metadata")]
     public Metadata Metadata { get; set; }
 
+    [JsonProperty("mode")]
+    public string Mode { get; set; }
+
+    [JsonProperty("on")]
+    public On On { get; set; }
+
+    [JsonProperty("owner")]
+    public Owner Owner { get; set; }
+
+    [JsonProperty("type")]
+    public string Type { get; set; }
     [JsonProperty("product_data")]
     public ProductData ProductData { get; set; }
 
     [JsonProperty("services")]
     public Service[] Services { get; set; }
-
-    [JsonProperty("type")]
-    public string Type { get; set; }
 }
 
-public partial class Service
+public class Alert
+{
+    [JsonProperty("action_values")]
+    public string[] ActionValues { get; set; }
+}
+
+public class Color
+{
+    [JsonProperty("gamut")]
+    public Gamut Gamut { get; set; }
+
+    [JsonProperty("gamut_type")]
+    public string GamutType { get; set; }
+
+    [JsonProperty("xy")]
+    public Xy Xy { get; set; }
+}
+
+public class Gamut
+{
+    [JsonProperty("blue")]
+    public Xy Blue { get; set; }
+
+    [JsonProperty("green")]
+    public Xy Green { get; set; }
+
+    [JsonProperty("red")]
+    public Xy Red { get; set; }
+}
+
+public class Xy
+{
+    [JsonProperty("x")]
+    public double X { get; set; }
+
+    [JsonProperty("y")]
+    public double Y { get; set; }
+}
+
+public class ColorTemperature
+{
+    [JsonProperty("mirek")]
+    public object Mirek { get; set; }
+
+    [JsonProperty("mirek_schema")]
+    public MirekSchema MirekSchema { get; set; }
+
+    [JsonProperty("mirek_valid")]
+    public bool MirekValid { get; set; }
+}
+
+public class MirekSchema
+{
+    [JsonProperty("mirek_maximum")]
+    public long MirekMaximum { get; set; }
+
+    [JsonProperty("mirek_minimum")]
+    public long MirekMinimum { get; set; }
+}
+
+public class Dimming
+{
+    [JsonProperty("brightness")]
+    public double Brightness { get; set; }
+
+    [JsonProperty("min_dim_level")]
+    public double MinDimLevel { get; set; }
+}
+
+public class Dynamics
+{
+    [JsonProperty("speed")]
+    public double Speed { get; set; }
+
+    [JsonProperty("speed_valid")]
+    public bool SpeedValid { get; set; }
+
+    [JsonProperty("status")]
+    public string Status { get; set; }
+
+    [JsonProperty("status_values")]
+    public string[] StatusValues { get; set; }
+}
+
+public class Effects
+{
+    [JsonProperty("effect_values")]
+    public string[] EffectValues { get; set; }
+
+    [JsonProperty("status")]
+    public string Status { get; set; }
+
+    [JsonProperty("status_values")]
+    public string[] StatusValues { get; set; }
+}
+
+public class On
+{
+    [JsonProperty("on")]
+    public bool OnOn { get; set; }
+}
+
+public class Owner
 {
     [JsonProperty("rid")]
     public string Rid { get; set; }
@@ -44,7 +171,16 @@ public partial class Service
     public string Rtype { get; set; }
 }
 
-public partial class ProductData
+public class Service
+{
+    [JsonProperty("rid")]
+    public string Rid { get; set; }
+
+    [JsonProperty("rtype")]
+    public string Rtype { get; set; }
+}
+
+public class ProductData
 {
     [JsonProperty("certified")]
     public bool Certified { get; set; }
@@ -65,7 +201,7 @@ public partial class ProductData
     public string SoftwareVersion { get; set; }
 }
 
-public partial class Metadata
+public class Metadata
 {
     [JsonProperty("archetype")]
     public string Archetype { get; set; }
@@ -98,3 +234,4 @@ internal static class Converter
         },
     };
 }
+

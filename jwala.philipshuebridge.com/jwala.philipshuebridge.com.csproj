@@ -24,8 +24,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="data\responses\resources\" />
-  </ItemGroup>
-
 </Project>

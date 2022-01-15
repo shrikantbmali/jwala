@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using jwala.philipshuebridge.com.responses.authorization;
-using jwala.philipshuebridge.com.responses.resources.statuses;
+using jwala.philipshuebridge.com.responses.resources;
 using NUnit.Framework;
 
 namespace jwala.philipshuebridge.com.tests;
@@ -91,5 +92,23 @@ internal class Bridge_Com_Tests
         });
 
         await Task.Delay(1000);
+    }
+
+    [Test]
+    public async Task Should_Be_Able_To_Add_A_Subscription_For_Event_On_A_Resource()
+    {
+        var resources = await _bridgeCom.GetResources("light");
+        var lightId = resources.Data.First().Id;
+
+        var listener = await _bridgeCom.Subscribe()
+            .OnEvent(status =>
+            {
+                Trace.WriteLine(status.ToJson());
+            })
+            .StartAsync();
+
+        await Task.Delay(TimeSpan.FromHours(1));
+
+        listener.Stop();
     }
 }
