@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using jwala.philipshuebridge.com.responses.authorization;
 using RestSharp;
 
@@ -19,6 +20,6 @@ public class BridgeAuthService : Com
                 generateclientkey = true
             }));
 
-        return responses.authorization.Auth.FromJson(restResponse.Content);
+        return responses.authorization.Auth.FromJson(restResponse.Content).First();
     }
 }

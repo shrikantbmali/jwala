@@ -1,30 +1,56 @@
-﻿using System;
-using System.Timers;
+﻿using System.Linq;
+using jwala.philipshuebridge.com;
+using jwala.philipshuebridge.com.responses.authorization;
+using jwala.philipshuebridge.com.responses.resources;
 using Xamarin.Forms;
+using Color = Xamarin.Forms.Color;
 
 namespace jwala
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        private BridgeCom _bridgeCom;
+
+        public MainPage(Bridge bridge, Success success)
         {
             InitializeComponent();
 
-            var timer = new Timer();
-            timer.Elapsed += Timer_Elapsed;
-            timer.Interval = TimeSpan.FromMilliseconds(100).Milliseconds;
-            timer.Start();
+            _bridgeCom = new BridgeCom(bridge, success);
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        protected override async void OnAppearing()
         {
-            Device.InvokeOnMainThreadAsync(() =>
+            base.OnAppearing();
+
+            _ = await _bridgeCom.Subscribe()
+                .OnEvent(message =>
+                {
+                    Device.InvokeOnMainThreadAsync(() =>
+                    {
+                        Label.Text = message.ToJson();
+                        CreateNewColor(message?.Data.FirstOrDefault() ?? new Datum(), ContentPage.BackgroundColor);
+                    });
+                })
+                .StartAsync();
+
+        }
+
+        private Color CreateNewColor(Datum data, Color currentColor)
+        {
+            if (data?.Color?.Gamut is not null)
             {
-                Label.Text = e.SignalTime.ToLongTimeString();
-                
-                return ContentPage.BackgroundColor = new Xamarin.Forms.Color(e.SignalTime.Second,
-                        e.SignalTime.Millisecond, e.SignalTime.Ticks);
-            });
+                currentColor = Color.FromRgb(data.Color.Gamut.Red.X, data.Color.Gamut.Green.X,
+                    data.Color.Gamut.Green.X);
+            }
+            else if (data?.Color?.Xy is not null)
+            {
+                //currentColor = Color.FromRgb(rgb.R, rgb.G, rgb.B);
+            }
+            else if (data?.Dimming is not null)
+            {
+            }
+
+            return currentColor;
         }
     }
 }

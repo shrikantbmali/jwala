@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:jwala="clr-namespace:jwala;assembly=jwala"
+             xmlns:com="clr-namespace:jwala.philipshuebridge.com;assembly=jwala.philipshuebridge.com"
+             x:Class="jwala.GettingStartedPage"
+             x:DataType="jwala:GettingStartedViewModel">
+    <ContentPage.Content>
+        <StackLayout Margin="40">
+            <ListView ItemsSource="{Binding Bridges}"
+                      ItemSelected="ListView_OnItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="com:Bridge">
+                        <ViewCell>
+                            <Label Text="{Binding Name}" Margin="10"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Discover" Command="{Binding DiscoverCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

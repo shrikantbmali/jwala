@@ -27,7 +27,7 @@ internal class Bridge_Com_Tests
 
         if (File.Exists(authFileForCurrentBridge))
         {
-            var auth = Auth.FromJson(await TestHelper.GetFileText(authFileForCurrentBridge));
+            var auth = Auth.FromJson(await TestHelper.GetFileText(authFileForCurrentBridge)).First();
 
             _bridgeCom = new BridgeCom(bridge, auth.Success);
         }

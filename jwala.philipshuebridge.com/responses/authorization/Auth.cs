@@ -20,7 +20,7 @@ public static class Serialize
 
 public partial class Auth
 {
-    public static Auth FromJson(string json) => JsonConvert.DeserializeObject<Auth>(json, Converter.Settings);
+    public static Auth[] FromJson(string json) => JsonConvert.DeserializeObject<Auth[]>(json, Converter.Settings);
 }
 
 internal static class Converter
