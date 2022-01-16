@@ -17,13 +17,13 @@ public class BridgeCom : Com
         _authSuccess = authSuccess;
     }
 
-    public async Task<Resource> GetResources()
+    public async Task<Resource> GetResourceAsync()
     {
         var restResponse = await Get(AddKey(new RestRequest("/clip/v2/resource/device")));
         return Resource.FromJson(restResponse.Content);
     }
 
-    public async Task<Resource> GetResources(string resource)
+    public async Task<Resource> GetResourceAsync(string resource)
     {
         var restResponse = await Get(AddKey(new RestRequest($"/clip/v2/resource/{resource}")));
         return Resource.FromJson(restResponse.Content);
@@ -51,7 +51,7 @@ public class BridgeCom : Com
         return restRequest;
     }
 
-    public StreamEventListener Subscribe()
+    public StreamEventListener SubscribeAsync()
     {
         return new StreamEventListener("https://192.168.0.22/eventstream/clip/v2", _authSuccess.Username);
     }

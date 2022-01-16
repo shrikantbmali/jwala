@@ -47,7 +47,7 @@ internal class Bridge_Com_Tests
     [Test]
     public async Task Should_Be_Able_To_Get_device_Resources()
     {
-        var restResponse = await _bridgeCom.GetResources();
+        var restResponse = await _bridgeCom.GetResourceAsync();
 
         Assert.IsNotNull(restResponse);
         Assert.IsNotNull(restResponse.Data);
@@ -57,7 +57,7 @@ internal class Bridge_Com_Tests
     [Test]
     public async Task Should_Be_Able_To_Get_Status_Of_All_Sevices()
     {
-        var resources = await _bridgeCom.GetResources();
+        var resources = await _bridgeCom.GetResourceAsync();
 
         var service = resources.Data.SelectMany(
             datum => datum.Services.Where(
@@ -71,7 +71,7 @@ internal class Bridge_Com_Tests
     [Test]
     public async Task Should_Be_Able_To_Get_Status_Of_Specified_Service()
     {
-        var resources = await _bridgeCom.GetResources("light");
+        var resources = await _bridgeCom.GetResourceAsync("light");
 
         var status = await _bridgeCom.GetStatus(resources.Data.First().Id);
     }
@@ -79,7 +79,7 @@ internal class Bridge_Com_Tests
     [Test]
     public async Task Should_Be_Able_To_Turn_The_Area_On_Off()
     {
-        var resources = await _bridgeCom.GetResources("light");
+        var resources = await _bridgeCom.GetResourceAsync("light");
 
         var status = await _bridgeCom.GetStatus(resources.Data.First().Id);
 
@@ -97,10 +97,10 @@ internal class Bridge_Com_Tests
     [Test]
     public async Task Should_Be_Able_To_Add_A_Subscription_For_Event_On_A_Resource()
     {
-        var resources = await _bridgeCom.GetResources("light");
+        var resources = await _bridgeCom.GetResourceAsync("light");
         var lightId = resources.Data.First().Id;
 
-        var listener = await _bridgeCom.Subscribe()
+        var listener = await _bridgeCom.SubscribeAsync()
             .OnEvent(status =>
             {
                 Trace.WriteLine(status.ToJson());
