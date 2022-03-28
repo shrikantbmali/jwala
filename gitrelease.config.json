@@ -1,0 +1,21 @@
+{
+  "is-generic-project": false,
+  "platforms": [
+    {
+      "name": "iOS",
+      "path": "jwala.iOS"
+    },
+    {
+      "name": "droid",
+      "path": "jwala.Android"
+    },
+    {
+      "name": "uwp",
+      "path": "jwala.UWP"
+    }
+  ],
+  "changelog-options": {
+    "exclude-type": "chore,docs",
+    "project-url": null
+  }
+}

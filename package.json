@@ -1,0 +1,26 @@
+{
+  "name": "jwala",
+  "version": "0.0.0.4",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shrikantbmali/jwala.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shrikantbmali/jwala/issues"
+  },
+  "homepage": "https://github.com/shrikantbmali/jwala#readme",
+  "dependencies": {
+    "generate-changelog": "^1.8.0"
+  }
+}
